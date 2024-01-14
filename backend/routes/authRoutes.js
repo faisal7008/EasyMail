@@ -4,6 +4,8 @@ const { isAuthenticated } = require("../middlewares/authMiddleware");
 const User = require("../models/User");
 const router = express.Router();
 
+// http://localhost:9000/auth
+
 router.get(
   "/google",
   passport.authenticate("google", { scope: ["profile", "email"] })

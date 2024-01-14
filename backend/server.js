@@ -36,6 +36,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const authRoutes = require("./routes/authRoutes");
+const mailRoutes = require("./routes/mailRoutes");
 
 // routes
 app.use("/auth", authRoutes);
+app.use("/mails", mailRoutes);
