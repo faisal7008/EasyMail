@@ -33,7 +33,7 @@ const sendEmail = async (req, res) => {
 
     res.status(200).json(response.data);
   } catch (error) {
-    console.error("Error sending email:", error.response.data);
+    console.error("Error sending email:", error.response.data.Message);
     res
       .status(error.response.data.ErrorCode || 500)
       .json({ error: error.response.data.Message });
@@ -67,7 +67,7 @@ const getOutboundEmailHistory = async (req, res) => {
   } catch (error) {
     console.error(
       "Error retrieving outbound email history:",
-      error.response.data
+      error.response.data.Message
     );
     res
       .status(error.response.data.ErrorCode || 500)
@@ -101,7 +101,7 @@ const getInboundEmailHistory = async (req, res) => {
   } catch (error) {
     console.error(
       "Error retrieving inbound email history:",
-      error.response.data
+      error.response.data.Message
     );
     res
       .status(error.response.data.ErrorCode || 500)
@@ -132,7 +132,7 @@ const sendEmailWithTemplate = async (req, res) => {
 
     res.status(200).json(response.data);
   } catch (error) {
-    console.error("Error sending email with template:", error.response.data);
+    console.error("Error sending email with template:", error.response.data.Message);
     res
       .status(error.response.data.ErrorCode || 500)
       .json({ error: error.response.data.Message });
@@ -152,7 +152,7 @@ const getMessageDetails = async (req, res) => {
 
     res.status(200).json(response.data);
   } catch (error) {
-    console.error('Error retrieving message details:', error.response.data);
+    console.error('Error retrieving message details:', error.response.data.Message);
     res.status(error.responsse.ErrorCode || 500).json({ error: error.response.data.Message });
   }
 }
