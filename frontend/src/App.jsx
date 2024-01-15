@@ -7,6 +7,7 @@ import MailBox from './components/MailBox';
 import { MessageProvider } from './context/MessageContext';
 import { useEffect } from 'react';
 import useMailAPI from './hooks/useMailApi';
+import MessageBox from './components/MessageBox';
 
 function App() {
   const { user } = useAuth();
@@ -32,6 +33,7 @@ function App() {
 				>
           <Route path='/inbox' element={<MailBox/>}/>
           <Route path='/sent' element={<MailBox/>}/>
+          <Route path='/messages/:messageId' element={<MessageBox/>}/>
         </Route>
 				<Route
 					exact

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { InboxIcon } from "../icons/InboxIcon";
 import { SentIcon } from "../icons/SentIcon";
 import { MenuIcon } from "../icons/MenuIcon";
+import Compose from "./Compose";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -45,7 +46,8 @@ const Sidebar = () => {
               <h2 className="text-2xl font-semibold tracking-wide">EasyMail</h2>
             </div>
             <div className="mt-4 flex flex-col gap-4">
-              <button className="btn btn-neutral btn-wide">Compose</button>
+              {/* <button className="btn btn-neutral btn-wide">Compose</button> */}
+              <Compose />
               <ul className="space-y-1">
                 <li>
                   <a
