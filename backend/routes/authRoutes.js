@@ -13,10 +13,7 @@ router.get(
 
 router.get(
   "/google/callback",
-  passport.authenticate("google", { failureRedirect: "/auth/error" }),
-  (req, res) => {
-    res.redirect("/auth/success");
-  }
+  passport.authenticate("google", { successRedirect: process.env.CLIENT_URL, failureRedirect: "/auth/error" })
 );
 
 router.get("/success", async (req, res) => {
@@ -37,20 +34,22 @@ router.get("/failed", (req, res) => {
   res.status(401).json({ message: "Login failure" });
 });
 
-router.get("/profile", isAuthenticated, (req, res) => {
+router.get("/profile", async (req, res) => {
   if (req.user) {
-    res.status(200).json({ profile: req.user._json });
+    const { email } = req.user._json;
+    const profile = await User.findOne({ email });
+    res.status(200).json({ profile });
   } else {
     res.status(403).json({ message: "Not Authorized" });
   }
 });
 
-router.get("/logout", isAuthenticated, (req, res, next) => {
+router.get("/logout", (req, res, next) => {
   req.logout(function (err) {
     if (err) {
       return next(err);
     }
-    res.redirect("/");
+    res.redirect(process.env.CLIENT_URL);
   });
 });
 
