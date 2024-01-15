@@ -5,8 +5,7 @@ import { useMessageContext } from '../context/MessageContext';
 const useMailAPI = () => {
   const {messages, setMessages, isLoading, setIsLoading } = useMessageContext()
   const [error, setError] = useState(null);
-  // const [isLoading, setIsLoading] = useState(false);
-  const API_URL = "http://localhost:9000";
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const sendEmail = async (emailData) => {
     try {

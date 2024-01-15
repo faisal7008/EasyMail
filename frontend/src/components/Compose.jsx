@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import useMailAPI from "../hooks/useMailApi";
+import { toast } from "react-toastify";
 
 const Compose = () => {
-  const fromEmail = "ugs20c136_aid.faisal@cbit.org.in"
+  const fromEmail = import.meta.env.VITE_FROM_EMAIL
   const [toEmail, setToEmail] = useState("")
   const [subject, setSubject] = useState("")
   const [textBody, setTextBody] = useState("")
@@ -16,7 +17,13 @@ const Compose = () => {
       subject,
       textBody
     }
-    sendEmail(emailData).then(res => console.log(res))
+    sendEmail(emailData).then(res => {
+      if (res.Message === "OK"){
+        toast.success('Message sent!')
+      }
+    }).catch((error) => {
+      toast.error('Message failed!')
+    })
   }
 
   return (

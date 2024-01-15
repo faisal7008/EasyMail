@@ -6,8 +6,8 @@ import replace from "@rollup/plugin-replace";
 export default defineConfig({
   plugins: [
     react(),
-    replace({
-      "process.env.API_URL": JSON.stringify(process.env.API_URL),
-    }),
+    // replace({
+    //   "process.env.API_URL": JSON.stringify(process.env.API_URL),
+    // }),
   ],
 });
