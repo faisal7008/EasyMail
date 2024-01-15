@@ -133,11 +133,28 @@ const sendEmailWithTemplate = async (req, res) => {
     res.status(200).json(response.data);
   } catch (error) {
     console.error("Error sending email with template:", error.response.data);
-
     res
       .status(error.response.data.ErrorCode || 500)
       .json({ error: error.response.data.Message });
   }
 };
 
-module.exports = { sendEmail, getOutboundEmailHistory, getInboundEmailHistory, sendEmailWithTemplate };
+const getMessageDetails = async (req, res) => {
+  const messageId = req.params.messageId;
+
+  try {
+    const response = await axios.get(`https://api.postmarkapp.com/messages/outbound/${messageId}/details`, {
+      headers: {
+        Accept: 'application/json',
+        "X-Postmark-Server-Token": process.env.POSTMARK_API_KEY,
+      },
+    });
+
+    res.status(200).json(response.data);
+  } catch (error) {
+    console.error('Error retrieving message details:', error.response.data);
+    res.status(error.responsse.ErrorCode || 500).json({ error: error.response.data.Message });
+  }
+}
+
+module.exports = { sendEmail, getOutboundEmailHistory, getInboundEmailHistory, sendEmailWithTemplate, getMessageDetails };
