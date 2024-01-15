@@ -2,9 +2,11 @@ import useMailAPI from "../hooks/useMailApi";
 import moment from "moment/moment";
 import Loader from "./Loader";
 import { TrashIcon } from "../icons/TrashIcon";
+import { useNavigate } from "react-router-dom";
 
 const MailBox = () => {
   const { messages, isLoading } = useMailAPI();
+  const navigate = useNavigate()
 
   return (
     <div className="p-1 h-full">
@@ -35,9 +37,10 @@ const MailBox = () => {
                 {messages?.map((message) => (
                   <tr
                     key={message.MessageID}
+                    onClick={() => navigate(`/messages/${message.MessageID}`)}
                     className=" cursor-pointer hover:bg-base-100"
                   >
-                    <th>
+                    <th onClick={(e) => e.stopPropagation()}>
                       <label>
                         <input type="checkbox" className="checkbox" />
                       </label>

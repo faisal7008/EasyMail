@@ -49,6 +49,20 @@ const useMailAPI = () => {
     }
   };
 
+  const getMessageByID = async (messageId) => {
+    try {
+      setIsLoading(true)
+      const response = await axios.get(`${API_URL}/mails/${messageId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error retrieving message by id:', error.response.data);
+      setError(error.response.data.error || 'An error occurred while retrieving message by id.');
+      throw error;
+    } finally {
+        setIsLoading(false)
+    }
+  };
+
   const sendEmailWithTemplate = async (templateData) => {
     try {
       const response = await axios.post(`${API_URL}/mails/send-email-with-template`, templateData); 
@@ -69,6 +83,7 @@ const useMailAPI = () => {
     getSentEmails,
     getRecievedEmails,
     sendEmailWithTemplate,
+    getMessageByID,
     error,
     clearError,
     isLoading,
